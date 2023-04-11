@@ -1,0 +1,9 @@
+spring:
+  config:
+    import:
+      - application-mybatis.yml
+      - application-sql.yml
+      - security/application-datasource.yml
+      - security/application-security.yml
+    activate:
+      on-profile: dev

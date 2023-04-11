@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.multi.shop.member.mapper.MemberMapper">
+    <insert id="save" parameterType="MemberVO">
+        insert into member(birth, email, name, password, phone, role)
+            value (#{birth}, #{email}, #{name}, #{password}, #{phone}, #{role});
+    </insert>
+
+    <select id="findById" parameterType="Long" resultType="Member">
+        SELECT *
+        FROM member
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByMemberEmail" parameterType="String" resultType="MemberVO">
+        SELECT *
+        FROM member
+        WHERE email = #{email}
+    </select>
+
+    <update id="updatePassword" parameterType="MemberModifyPWRequest">
+        UPDATE member
+        SET password = #{newPassword}
+        WHERE id = #{memberId}
+    </update>
+
+    <select id="existByMemberEmail" parameterType="String" resultType="boolean">
+        SELECT if(count(*) = 1, 1, 0)
+        FROM member
+        WHERE email = #{email}
+    </select>
+
+    <select id="existByMemberPhone" parameterType="String" resultType="boolean">
+        SELECT if(count(*) = 1, 1, 0)
+        FROM member
+        WHERE phone = #{phone}
+    </select>
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.multi.shop.cart.mapper.CartMapper">
+    <insert id="save" parameterType="CartSaveRequest">
+        insert into cart(checked, quantity, member_id, product_id)
+            VALUE (#{checked}, #{quantity}, #{memberId}, #{productId});
+    </insert>
+
+    <select id="findById" parameterType="Long" resultType="Cart">
+        SELECT *
+        FROM cart
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByMemberId" parameterType="Long" resultType="CartVO">
+        SELECT c.id    cartId,
+               c.checked,
+               c.quantity,
+               p.id    productId,
+               p.image productImage,
+               p.name  productName,
+               p.price productPrice,
+               m.id    memberId
+        FROM cart c
+                 JOIN member m on m.id = c.member_id
+                 JOIN product p on p.id = c.product_id
+        WHERE c.member_id = #{memberId}
+        ORDER BY c.id desc
+    </select>
+
+    <select id="findCartQuantityByMemberId" parameterType="Long" resultType="int">
+        SELECT count(id)
+        FROM cart
+        WHERE member_id = #{memberId}
+    </select>
+
+    <update id="updateQuantity" parameterType="CartChangeQuantityRequest">
+        UPDATE cart
+        SET quantity = #{quantity}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateChecked" parameterType="CartChangeCheckedRequest">
+        UPDATE cart
+        SET checked = #{checked}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE
+        FROM cart
+        WHERE id = #{id}
+    </delete>
+
+    <select id="existById" parameterType="Long" resultType="boolean">
+        SELECT if(count(*) = 1, 1, 0)
+        FROM cart
+        WHERE id = #{id}
+    </select>
+
+    <select id="existByProductId" parameterType="CartSaveRequest" resultType="boolean">
+        SELECT if(count(*) = 1, 1, 0)
+        FROM cart
+        WHERE member_id = #{memberId}
+          AND product_id = #{productId}
+    </select>
+</mapper>
