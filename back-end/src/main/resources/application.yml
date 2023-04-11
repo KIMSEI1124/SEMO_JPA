@@ -1,6 +1,0 @@
-spring:
-  config:
-    import:
-      - application-mybatis.yml
-      - security/application-datasource.yml
-      - security/application-security.yml
