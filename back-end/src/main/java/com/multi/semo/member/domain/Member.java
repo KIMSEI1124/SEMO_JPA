@@ -37,4 +37,8 @@ public class Member extends BaseEntity {
     public String getEmail() {
         return email.getValue();
     }
+
+    public String getName() {
+        return name.getValue();
+    }
 }
