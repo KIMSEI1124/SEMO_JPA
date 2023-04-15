@@ -32,4 +32,9 @@ public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Roles role;
+
+    /* Getter */
+    public String getEmail() {
+        return email.getValue();
+    }
 }
