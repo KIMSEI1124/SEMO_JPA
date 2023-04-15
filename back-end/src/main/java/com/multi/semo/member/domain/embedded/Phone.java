@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Phone {
+    /* TODO: 버그 발생 수정 필요 */
     private static final String PHONE_FORMAT = "^01(?:0|1|[6-9])(?:\\\\d{3}|\\\\d{4})\\\\d{4}$";
     private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_FORMAT);
 
@@ -23,6 +24,7 @@ public class Phone {
     }
 
     public static Phone of(String value) {
+        validatePatternIsValid(value);
         return new Phone(value);
     }
 
