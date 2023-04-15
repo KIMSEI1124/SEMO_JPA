@@ -1,11 +1,13 @@
 package com.multi.semo.global;
 
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }
