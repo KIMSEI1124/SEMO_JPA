@@ -1,5 +1,6 @@
 package com.multi.semo.member.domain.embedded;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class Name {
     private static final int MIN_LENGTH = 2;
     private static final int MAX_LENGTH = 30;
 
+    @Column(name = "name")
     private String value;
 
     private Name(String value) {
