@@ -1,5 +1,9 @@
 package com.multi.semo.member.domain;
 
+import com.multi.semo.member.domain.embedded.Email;
+import com.multi.semo.member.domain.embedded.Name;
+import com.multi.semo.member.domain.embedded.Password;
+import com.multi.semo.member.domain.embedded.Phone;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

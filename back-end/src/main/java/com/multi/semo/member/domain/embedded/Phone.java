@@ -1,4 +1,4 @@
-package com.multi.semo.member.domain;
+package com.multi.semo.member.domain.embedded;
 
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
