@@ -1,5 +1,6 @@
 package com.multi.semo.member.domain.embedded;
 
+import com.multi.semo.member.exception.MemberException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -32,7 +33,7 @@ class PasswordTest {
     void isNotValid(String value) {
         Throwable throwable = catchThrowable(() -> Password.encode(value, passwordEncoder()));
         assertThat(throwable)
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("올바르지 않은 비밀번호 형식입니다.");
     }
 
@@ -44,7 +45,7 @@ class PasswordTest {
         String value = "A0!" + "a".repeat(loop);
         Throwable throwable = catchThrowable(() -> Password.encode(value, passwordEncoder()));
         assertThat(throwable)
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("올바르지 않은 비밀번호 형식입니다.");
     }
 }

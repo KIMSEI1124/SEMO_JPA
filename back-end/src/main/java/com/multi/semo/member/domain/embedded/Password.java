@@ -1,5 +1,7 @@
 package com.multi.semo.member.domain.embedded;
 
+import com.multi.semo.member.exception.MemberErrorCode;
+import com.multi.semo.member.exception.MemberException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -32,7 +34,7 @@ public class Password {
 
     private static void validatePatternIsValid(String value) {
         if (isNotValid(value)) {
-            throw new RuntimeException("올바르지 않은 비밀번호 형식입니다.");
+            throw new MemberException(MemberErrorCode.PASSWORD_PATTERN_MUST_BE_VALID);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.multi.semo.member.domain.embedded;
 
+import com.multi.semo.member.exception.MemberException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -25,7 +26,7 @@ class NameTest {
     @ValueSource(strings = {"세ㅁ", "ㅔ모"})
     void isNotValid(String value) {
         assertThatThrownBy(() -> Name.of(value))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("올바르지 않은 이름의 형식입니다.");
     }
 
@@ -34,7 +35,7 @@ class NameTest {
     @ValueSource(strings = {"semo", "kim", "3상", "@기"})
     void notKoreanName(String value) {
         assertThatThrownBy(() -> Name.of(value))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("올바르지 않은 이름의 형식입니다.");
     }
 
@@ -45,7 +46,7 @@ class NameTest {
     void lengthOutOfRange(int loop) {
         String value = "이".repeat(loop);
         assertThatThrownBy(() -> Name.of(value))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("사용자의 이름은 2자 이상 30자 이하여야 합니다.");
     }
 }

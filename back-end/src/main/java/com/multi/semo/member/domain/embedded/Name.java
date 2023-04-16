@@ -1,5 +1,7 @@
 package com.multi.semo.member.domain.embedded;
 
+import com.multi.semo.member.exception.MemberErrorCode;
+import com.multi.semo.member.exception.MemberException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -12,7 +14,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Name {
-    private static final String NAME_FORMAT = "^([가-힣]{2,30})*$";
+    private static final String NAME_FORMAT = "^([가-힣]{2,30})$";
     private static final Pattern NAME_PATTERN = Pattern.compile(NAME_FORMAT);
     private static final int MIN_LENGTH = 2;
     private static final int MAX_LENGTH = 30;
@@ -32,7 +34,7 @@ public class Name {
 
     private static void validatePatternIsValid(String value) {
         if (isNotValid(value)) {
-            throw new RuntimeException("올바르지 않은 이름의 형식입니다.");
+            throw new MemberException(MemberErrorCode.NAME_PATTERN_MUST_BE_VALID);
         }
     }
 
@@ -43,8 +45,7 @@ public class Name {
     private static void validateLengthInRange(String value) {
         int length = value.length();
         if (length < MIN_LENGTH || MAX_LENGTH < length) {
-            throw new RuntimeException("사용자의 이름은 2자 이상 30자 이하여야 합니다.");
+            throw new MemberException(MemberErrorCode.NAME_CANNOT_BE_OUT_OF_RANGE);
         }
     }
-
 }
