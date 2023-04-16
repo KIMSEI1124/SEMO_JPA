@@ -1,19 +1,24 @@
 package com.multi.semo.member.domain.embedded;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.regex.Pattern;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Password {
+    /* TODO: 길이 검증 분리하기 */
     private static final String PASSWORD_FORMAT =
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,16}$";
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_FORMAT);
 
+    @Column(name = "password")
     private String value;
 
     private Password(String value) {

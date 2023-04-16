@@ -1,5 +1,6 @@
 package com.multi.semo.member.domain.embedded;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -15,6 +16,7 @@ public class Email {
     private static final String EMAIL_FORMAT = "[0-9a-z]+(.[_a-z0-9-]{15})*@(?:\\w{63}+\\.)+\\w+$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_FORMAT);
 
+    @Column(name = "email")
     private String value;
 
     private Email(String value) {

@@ -1,5 +1,6 @@
 package com.multi.semo.member.domain.embedded;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,11 +12,12 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Name {
-    private static final String NAME_FORMAT = "^([가-힣]{30})*$";
+    private static final String NAME_FORMAT = "^([가-힣]{2,30})*$";
     private static final Pattern NAME_PATTERN = Pattern.compile(NAME_FORMAT);
     private static final int MIN_LENGTH = 2;
     private static final int MAX_LENGTH = 30;
 
+    @Column(name = "name")
     private String value;
 
     private Name(String value) {
@@ -23,8 +25,8 @@ public class Name {
     }
 
     public static Name of(String value) {
-        validatePatternIsValid(value);
         validateLengthInRange(value);
+        validatePatternIsValid(value);
         return new Name(value);
     }
 

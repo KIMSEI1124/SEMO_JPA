@@ -56,6 +56,10 @@ public class Member {
         return name.getValue();
     }
 
+    public String getPassword() {
+        return password.getValue();
+    }
+
     public String getPhone() {
         return phone.getValue();
     }
