@@ -12,8 +12,12 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Email {
+    private static final int PREFIX_MIN_LENGTH = 8;
+    private static final int PREFIX_MAX_LENGTH = 16;
+    private static final int DOMAIN_MIN_LENGTH = 2;
+    private static final int DOMAIN_MAX_LENGTH = 63;
 
-    private static final String EMAIL_FORMAT = "[0-9a-z]+(.[_a-z0-9-]{15})*@(?:\\w{63}+\\.)+\\w+$";
+    private static final String EMAIL_FORMAT = "^[a-z0-9._-]+@[a-z]+[.]+[a-z]{2,3}$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_FORMAT);
 
     @Column(name = "email")
@@ -24,6 +28,8 @@ public class Email {
     }
 
     public static Email of(String value) {
+        validateLengthInRangeByPrefix(value);
+        validateLengthInRangeByDomain(value);
         validatePatternIsValid(value);
         return new Email(value);
     }
@@ -36,5 +42,19 @@ public class Email {
 
     private static boolean isNotValid(String value) {
         return !EMAIL_PATTERN.matcher(value).matches();
+    }
+
+    private static void validateLengthInRangeByPrefix(String value) {
+        int prefixLength = value.substring(0, value.indexOf("@")).length();
+        if (prefixLength < PREFIX_MIN_LENGTH || PREFIX_MAX_LENGTH < prefixLength) {
+            throw new RuntimeException("이메일 계정의 길이는 최소 8자부터 최대 16자까지 허용합니다.");
+        }
+    }
+
+    private static void validateLengthInRangeByDomain(String value) {
+        int domainLength = value.substring(value.indexOf("@") + 1, value.indexOf(".")).length();
+        if (domainLength < DOMAIN_MIN_LENGTH || DOMAIN_MAX_LENGTH < domainLength) {
+            throw new RuntimeException("도메인 주소의 길이는 최소 2자부터 최대 63자까지 허용합니다.");
+        }
     }
 }
