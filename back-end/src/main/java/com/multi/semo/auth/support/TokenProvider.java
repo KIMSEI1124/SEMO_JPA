@@ -1,6 +1,8 @@
 package com.multi.semo.auth.support;
 
 import com.multi.semo.auth.dto.TokenDto;
+import com.multi.semo.auth.exception.AuthErrorCode;
+import com.multi.semo.auth.exception.AuthException;
 import com.multi.semo.member.domain.Member;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -73,7 +75,7 @@ public class TokenProvider {
         Claims claims = parseClaims(accessToken);
 
         if (claims.get(AUTHORITIES_KEY) == null) {
-            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+            throw new AuthException(AuthErrorCode.TOKEN_WITHOUT_AUTHORIZATION_INFORMATION);
         }
 
         /* 클레임에서 권한 정보 가져오기 */
@@ -95,13 +97,13 @@ public class TokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            throw new RuntimeException("잘못된 JWT 서명입니다.");
+            throw new AuthException(AuthErrorCode.JWT_SIGNATURE_MUST_BE_VALID);
         } catch (ExpiredJwtException e) {
-            throw new RuntimeException("만료된 JWT 토큰입니다.");
+            throw new AuthException(AuthErrorCode.JWT_MUST_BE_NOT_EXPIRED);
         } catch (UnsupportedJwtException e) {
-            throw new RuntimeException("지원되지 않는 JWT 토큰입니다.");
+            throw new AuthException(AuthErrorCode.JWT_NOT_SUPPORT);
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("JWT 토큰이 잘못되었습니다.");
+            throw new AuthException(AuthErrorCode.JWT_BE_MUST_VALID);
         }
     }
 
