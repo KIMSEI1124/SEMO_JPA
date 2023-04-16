@@ -29,10 +29,12 @@ public enum MemberFixture {
     }
 
     public Member toMember() {
-        return new Member(birth,
-                Email.of(email),
-                Name.of(name),
-                Password.encode(password, new BCryptPasswordEncoder()),
-                Phone.of(phone));
+        return Member.builder()
+                .birth(birth)
+                .email(Email.of(email))
+                .name(Name.of(name))
+                .password(Password.encode(password, new BCryptPasswordEncoder()))
+                .phone(Phone.of(phone))
+                .build();
     }
 }
