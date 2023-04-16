@@ -1,13 +1,12 @@
 package com.multi.semo.auth.support;
 
-import com.multi.semo.auth.dto.TokenDto;
+import com.multi.semo.auth.dto.response.TokenResponse;
 import com.multi.semo.auth.exception.AuthErrorCode;
 import com.multi.semo.auth.exception.AuthException;
 import com.multi.semo.member.domain.Member;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Component
 public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
@@ -34,11 +32,11 @@ public class TokenProvider {
     private final Key key;
 
     public TokenProvider(@Value("${jwt.secret}") String secretKey) {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);    // Base64 복호화
-        this.key = Keys.hmacShaKeyFor(keyBytes);                // 인스턴스 생성
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);    /* Base64 복호화 */
+        this.key = Keys.hmacShaKeyFor(keyBytes);                /* 인스턴스 생성 */
     }
 
-    public TokenDto generateTokenDto(Authentication auth, Member member) {
+    public TokenResponse generateTokenDto(Authentication auth, Member member) {
         /* 권한들 가져오기 */
         String authorities = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -61,7 +59,7 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
-        return TokenDto.builder()
+        return TokenResponse.builder()
                 .memberId(member.getId())
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)

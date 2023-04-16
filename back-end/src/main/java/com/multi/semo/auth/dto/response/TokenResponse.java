@@ -1,4 +1,4 @@
-package com.multi.semo.auth.dto;
+package com.multi.semo.auth.dto.response;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class TokenDto {
+public class TokenResponse {
     private Long memberId;
     private String grantType;
     private String accessToken;
@@ -15,7 +15,7 @@ public class TokenDto {
     private Long accessTokenExpiresIn;
 
     @Builder
-    public TokenDto(Long memberId, String grantType, String accessToken, String refreshToken, Long accessTokenExpiresIn) {
+    public TokenResponse(Long memberId, String grantType, String accessToken, String refreshToken, Long accessTokenExpiresIn) {
         this.memberId = memberId;
         this.grantType = grantType;
         this.accessToken = accessToken;
