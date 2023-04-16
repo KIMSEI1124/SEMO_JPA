@@ -36,7 +36,7 @@ public class TokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);                /* 인스턴스 생성 */
     }
 
-    public TokenResponse generateTokenDto(Authentication auth, Member member) {
+    public TokenResponse generateTokenDto(Authentication auth) {
         /* 권한들 가져오기 */
         String authorities = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -60,7 +60,6 @@ public class TokenProvider {
                 .compact();
 
         return TokenResponse.builder()
-                .memberId(member.getId())
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
                 .accessTokenExpiresIn(accessTokenExpiresIn.getTime())

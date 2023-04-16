@@ -1,4 +1,4 @@
-package com.multi.semo.global.config;
+package com.multi.semo.global.security.config;
 
 import com.multi.semo.auth.config.JwtSecurityConfig;
 import com.multi.semo.auth.support.JwtAccessDeniedHandler;
