@@ -1,5 +1,6 @@
 package com.multi.semo.member.domain.embedded;
 
+import com.multi.semo.member.exception.MemberException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -25,7 +26,7 @@ class EmailTest {
         /* 첫번째 테스트 이메일의 길이 : 7, 두번째 테스트 이메일의 길이 : 17 */
         String email = "a".repeat(loop) + "1@google.com";
         assertThatThrownBy(() -> Email.of(email))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("이메일 계정의 길이는 최소 8자부터 최대 16자까지 허용합니다.");
     }
 
@@ -35,7 +36,7 @@ class EmailTest {
     void lengthOutOfRangeByDomainName(int loop) {
         String email = "semo1234@" + "a".repeat(loop) + ".com";
         assertThatThrownBy(() -> Email.of(email))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("도메인 주소의 길이는 최소 2자부터 최대 63자까지 허용합니다.");
     }
 
@@ -44,7 +45,7 @@ class EmailTest {
     @ValueSource(strings = {"SEMo1234@gmail.com", "semo!234@gmail.com", "semo1234@Gmail.com", "semo1234@gma!l.com"})
     void isNotValidEmail(String value) {
         assertThatThrownBy(() -> Email.of(value))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("올바르지 않은 이메일 형식입니다.");
     }
 }

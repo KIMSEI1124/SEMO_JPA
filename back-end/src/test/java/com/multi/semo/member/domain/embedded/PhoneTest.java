@@ -1,5 +1,6 @@
 package com.multi.semo.member.domain.embedded;
 
+import com.multi.semo.member.exception.MemberException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -26,7 +27,7 @@ class PhoneTest {
     void isNotValidByCarrierNumber(String carrierNumber) {
         String value = "01" + carrierNumber + "12345678";
         assertThatThrownBy(() -> Phone.of(value))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("올바르지 않은 전화번호 형식입니다.");
     }
 
@@ -36,7 +37,7 @@ class PhoneTest {
     void hasNotNumberContain(String word) {
         String value = "0101234567" + word;
         assertThatThrownBy(() -> Phone.of(value))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("올바르지 않은 전화번호 형식입니다.");
     }
 
@@ -47,7 +48,7 @@ class PhoneTest {
     void lengthOutOfRange(int loop) {
         String value = "010" + "1".repeat(loop);
         assertThatThrownBy(() -> Phone.of(value))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(MemberException.class)
                 .hasMessageContaining("올바르지 않은 전화번호 형식입니다.");
     }
 }
