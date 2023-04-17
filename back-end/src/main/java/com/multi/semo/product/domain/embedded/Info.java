@@ -1,5 +1,7 @@
 package com.multi.semo.product.domain.embedded;
 
+import com.multi.semo.product.exception.ProductErrorCode;
+import com.multi.semo.product.exception.ProductException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Lob;
@@ -29,7 +31,7 @@ public class Info {
 
     private void validateLengthInRange(String value) {
         if (value.length() > MAX_LENGTH) {
-            throw new RuntimeException();
+            throw new ProductException(ProductErrorCode.INFO_CANNOT_BE_OUT_OF_RANGE);
         }
     }
 }
