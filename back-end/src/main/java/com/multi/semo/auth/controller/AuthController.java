@@ -1,6 +1,7 @@
 package com.multi.semo.auth.controller;
 
 import com.multi.semo.auth.dto.request.LoginRequest;
+import com.multi.semo.auth.dto.request.RefreshTokenRequest;
 import com.multi.semo.auth.dto.response.TokenResponse;
 import com.multi.semo.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
         TokenResponse response = authService.login(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/reissue")
+    public ResponseEntity<TokenResponse> reissue(@RequestBody RefreshTokenRequest request) {
+        TokenResponse response = authService.reissue(request);
         return ResponseEntity.ok(response);
     }
 }
