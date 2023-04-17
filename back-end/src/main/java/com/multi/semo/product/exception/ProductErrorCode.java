@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @Getter
 public enum ProductErrorCode implements ErrorCode {
-    INFO_CANNOT_BE_OUT_OF_RANGE(400, "PRODUCT_01", "상세 정보는 최대 1,000자까지 입력 가능합니다.");
+    INFO_CANNOT_BE_OUT_OF_RANGE(400, "PRODUCT_01", "상세 정보는 최대 1,000자까지 입력 가능합니다."),
+    PRODUCT_NAME_DUPLICATED(400, "PRODUCT_02", "제품의 이름은 중복될 수 없습니다.");
 
     private final int statusCode;
     private final String errorCode;

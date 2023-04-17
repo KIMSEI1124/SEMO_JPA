@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Info {
 
-    private final int MAX_LENGTH = 1000;
+    private static final int MAX_LENGTH = 1000;
 
     @Lob
     @Column(name = "info")
@@ -24,12 +24,12 @@ public class Info {
         this.value = value;
     }
 
-    public Info of(String value) {
+    public static Info of(String value) {
         validateLengthInRange(value);
         return new Info(value);
     }
 
-    private void validateLengthInRange(String value) {
+    private static void validateLengthInRange(String value) {
         if (value.length() > MAX_LENGTH) {
             throw new ProductException(ProductErrorCode.INFO_CANNOT_BE_OUT_OF_RANGE);
         }

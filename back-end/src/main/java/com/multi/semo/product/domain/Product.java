@@ -3,6 +3,7 @@ package com.multi.semo.product.domain;
 import com.multi.semo.product.domain.embedded.Info;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,6 +37,18 @@ public class Product {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Target target;
+
+    @Builder
+    public Product(Long id, Category category, String image, Info info, String name, int price, int stock, Target target) {
+        this.id = id;
+        this.category = category;
+        this.image = image;
+        this.info = info;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.target = target;
+    }
 
     /* Getter */
     public String getInfo() {
