@@ -7,6 +7,8 @@ import com.multi.semo.member.domain.embedded.Name;
 import com.multi.semo.member.domain.embedded.Password;
 import com.multi.semo.member.domain.embedded.Phone;
 import com.multi.semo.member.dto.request.MemberSignupRequest;
+import com.multi.semo.member.exception.MemberErrorCode;
+import com.multi.semo.member.exception.MemberException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,16 +25,32 @@ public class MemberService {
 
     @Transactional
     public Member signup(MemberSignupRequest request) {
-        /* TODO: 중복가입 방지(이메일, 전화번호 검증) */
-        log.info("birth : [{}], email : [{}], name : [{}], password : [{}], phone : [{}]"
-                , request.getBirth(), request.getEmail(), request.getName(), request.getPassword(), request.getPhone());
+        Email email = Email.of(request.getEmail());
+        validateEmailIsNotDuplicated(email);
+
+        Phone phone = Phone.of(request.getPhone());
+        validatePhoneIsNotDuplicated(phone);
+
         Member saveMember = Member.builder()
                 .birth(request.getBirth())
-                .email(Email.of(request.getEmail()))
+                .email(email)
                 .name(Name.of(request.getName()))
                 .password(Password.encode(request.getPassword(), passwordEncoder))
-                .phone(Phone.of(request.getPhone()))
+                .phone(phone)
                 .build();
+
         return memberRepository.save(saveMember);
+    }
+
+    private void validateEmailIsNotDuplicated(Email email) {
+        if (memberRepository.existsByEmail(email)) {
+            throw new MemberException(MemberErrorCode.SIGNUP_INVALID_EMAIL);
+        }
+    }
+
+    private void validatePhoneIsNotDuplicated(Phone phone) {
+        if (memberRepository.existsByPhone(phone)) {
+            throw new MemberException(MemberErrorCode.SIGNUP_INVALID_PHONE);
+        }
     }
 }
