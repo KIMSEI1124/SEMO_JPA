@@ -3,7 +3,9 @@ package com.multi.semo.product.service;
 import com.multi.semo.product.domain.Product;
 import com.multi.semo.product.domain.ProductRepository;
 import com.multi.semo.product.domain.embedded.Info;
+import com.multi.semo.product.dto.ProductDto;
 import com.multi.semo.product.dto.request.ProductSaveRequest;
+import com.multi.semo.product.dto.response.ProductsResponse;
 import com.multi.semo.product.exception.ProductErrorCode;
 import com.multi.semo.product.exception.ProductException;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +47,14 @@ public class ProductService {
         return productRepository.existsByName(name);
     }
 
+    public ProductsResponse findProducts(String search) {
+        return ProductsResponse.from(productRepository.findProducts(search)
+                .stream()
+                .map(ProductDto::from)
+                .toList());
+    }
+
+    @Transactional
     public void delete(Long productId) {
         Product findProduct = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
