@@ -19,7 +19,7 @@ public class Name {
     private static final int MIN_LENGTH = 2;
     private static final int MAX_LENGTH = 30;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String value;
 
     private Name(String value) {

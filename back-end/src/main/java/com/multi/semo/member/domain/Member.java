@@ -20,6 +20,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private LocalDate birth;
 
     @Embedded
@@ -35,6 +36,7 @@ public class Member {
     private Phone phone;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Roles role;
 
     @Builder

@@ -22,7 +22,7 @@ public class Email {
     private static final String EMAIL_FORMAT = "^[a-z0-9._-]+@[a-z]+[.]+[a-z]{2,3}$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_FORMAT);
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String value;
 
     private Email(String value) {
