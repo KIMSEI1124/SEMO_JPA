@@ -17,7 +17,7 @@ public class Phone {
     private static final String PHONE_FORMAT = "^01(?:0|1|[6-9])\\d{7,8}$";
     private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_FORMAT);
 
-    @Column(name = "phone")
+    @Column(name = "phone", unique = true, nullable = false)
     private String value;
 
     private Phone(String value) {

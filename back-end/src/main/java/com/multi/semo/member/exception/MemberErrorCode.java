@@ -11,7 +11,9 @@ public enum MemberErrorCode implements ErrorCode {
     NAME_PATTERN_MUST_BE_VALID(400, "NAME_01", "올바르지 않은 이름의 형식입니다."),
     NAME_CANNOT_BE_OUT_OF_RANGE(400, "NAME_02", "사용자의 이름은 2자 이상 30자 이하여야 합니다."),
     PASSWORD_PATTERN_MUST_BE_VALID(400, "PASSWORD_01", "올바르지 않은 비밀번호 형식입니다."),
-    PHONE_PATTERN_MUST_BE_VALID(400, "PHONE_01", "올바르지 않은 전화번호 형식입니다.");
+    PHONE_PATTERN_MUST_BE_VALID(400, "PHONE_01", "올바르지 않은 전화번호 형식입니다."),
+    SIGNUP_INVALID_EMAIL(400, "SIGNUP_01", "이미 가입된 이메일입니다."),
+    SIGNUP_INVALID_PHONE(400, "SIGNUP_02", "이미 가입된 전화번호입니다.");
 
     private final int statusCode;
     private final String errorCode;

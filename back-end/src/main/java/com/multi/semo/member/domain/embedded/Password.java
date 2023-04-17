@@ -20,7 +20,7 @@ public class Password {
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,16}$";
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_FORMAT);
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String value;
 
     private Password(String value) {
