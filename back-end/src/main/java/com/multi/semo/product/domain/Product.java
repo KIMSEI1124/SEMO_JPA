@@ -1,6 +1,7 @@
 package com.multi.semo.product.domain;
 
 import com.multi.semo.product.domain.embedded.Info;
+import com.multi.semo.product.dto.request.ProductUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -53,5 +54,16 @@ public class Product {
     /* Getter */
     public String getInfo() {
         return info.getValue();
+    }
+
+    /* 비즈니스 로직 */
+    public void update(ProductUpdateRequest request) {
+        this.category = request.getCategory();
+        this.image = request.getImage();
+        this.info = Info.of(request.getInfo());
+        this.name = request.getName();
+        this.price = request.getPrice();
+        this.stock = request.getStock();
+        this.target = request.getTarget();
     }
 }

@@ -5,6 +5,7 @@ import com.multi.semo.product.domain.ProductRepository;
 import com.multi.semo.product.domain.embedded.Info;
 import com.multi.semo.product.dto.ProductDto;
 import com.multi.semo.product.dto.request.ProductSaveRequest;
+import com.multi.semo.product.dto.request.ProductUpdateRequest;
 import com.multi.semo.product.dto.response.ProductsResponse;
 import com.multi.semo.product.exception.ProductErrorCode;
 import com.multi.semo.product.exception.ProductException;
@@ -47,6 +48,11 @@ public class ProductService {
         return productRepository.existsByName(name);
     }
 
+    public Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+    }
+
     public ProductsResponse findProducts(String search) {
         return ProductsResponse.from(productRepository.findProducts(search)
                 .stream()
@@ -55,9 +61,15 @@ public class ProductService {
     }
 
     @Transactional
+    public void update(ProductUpdateRequest request) {
+        Product findProduct = findById(request.getId());
+
+        findProduct.update(request);
+    }
+
+    @Transactional
     public void delete(Long productId) {
-        Product findProduct = productRepository.findById(productId)
-                .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+        Product findProduct = findById(productId);
 
         productRepository.delete(findProduct);
     }
