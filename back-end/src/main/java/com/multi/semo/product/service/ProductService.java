@@ -7,11 +7,13 @@ import com.multi.semo.product.dto.request.ProductSaveRequest;
 import com.multi.semo.product.exception.ProductErrorCode;
 import com.multi.semo.product.exception.ProductException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(readOnly = true)
+@Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
@@ -41,5 +43,12 @@ public class ProductService {
 
     private boolean isExist(String name) {
         return productRepository.existsByName(name);
+    }
+
+    public void delete(Long productId) {
+        Product findProduct = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+
+        productRepository.delete(findProduct);
     }
 }
