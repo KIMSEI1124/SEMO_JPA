@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@SpringBootTest
 class EmailTest {
     @DisplayName("사용자의 이메일이 조건에 부합하면 생성한다.")
     @ParameterizedTest

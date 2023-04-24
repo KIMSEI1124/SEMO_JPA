@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
 class PasswordTest {
 
     /* TODO: 추후 SecurityConfig 로 생성시 주입하여 사용 */

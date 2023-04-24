@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static com.multi.semo.member.fixture.MemberFixture.SEMA;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-@SpringBootTest
 class MemberTest {
 
     private static final MemberFixture MEMBER_FIXTURE = SEMA;
