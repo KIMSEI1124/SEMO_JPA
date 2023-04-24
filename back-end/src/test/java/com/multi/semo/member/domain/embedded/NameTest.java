@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@SpringBootTest
 class NameTest {
 
     @DisplayName("사용자의 이름이 조건에 부합하면 생성한다.")

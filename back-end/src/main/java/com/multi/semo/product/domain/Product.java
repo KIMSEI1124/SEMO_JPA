@@ -40,8 +40,7 @@ public class Product {
     private Target target;
 
     @Builder
-    public Product(Long id, Category category, String image, Info info, String name, int price, int stock, Target target) {
-        this.id = id;
+    public Product(Category category, String image, Info info, String name, int price, int stock, Target target) {
         this.category = category;
         this.image = image;
         this.info = info;

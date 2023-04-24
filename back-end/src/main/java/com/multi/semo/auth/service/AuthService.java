@@ -43,6 +43,7 @@ public class AuthService {
                 .memberId(Long.valueOf(authentication.getName()))
                 .value(tokenResponse.getRefreshToken())
                 .build();
+
         authRepository.save(token);
 
         return tokenResponse;

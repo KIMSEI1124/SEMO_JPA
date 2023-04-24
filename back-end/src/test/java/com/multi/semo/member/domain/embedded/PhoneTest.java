@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@SpringBootTest
 class PhoneTest {
 
     @DisplayName("사용자의 전화번호 통신사번호가 조건에 부합하면 생성한다.")
