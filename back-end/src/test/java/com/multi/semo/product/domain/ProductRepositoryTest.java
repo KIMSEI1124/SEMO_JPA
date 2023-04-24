@@ -4,8 +4,12 @@ import com.multi.semo.product.domain.embedded.Info;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -60,5 +64,17 @@ class ProductRepositoryTest {
 
         // then
         assertThat(actual).isTrue();
+    }
+
+    @DisplayName("제품을 검색하여 조회한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1})
+    void findProductTest(int size) {
+        // given
+        // when
+        List<Product> actual = productRepository.findProducts("모자");
+
+        // then
+        assertThat(actual).hasSize(size);
     }
 }
