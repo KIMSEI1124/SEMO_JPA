@@ -72,7 +72,7 @@ class ProductRepositoryTest {
     void findProductTest(int size) {
         // given
         // when
-        List<Product> actual = productRepository.findProducts("모자");
+        List<Product> actual = productRepository.findProducts("상의");
 
         // then
         assertThat(actual).hasSize(size);
